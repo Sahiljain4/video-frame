@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern TV Frame with Central Stand</title>
+    <style>
+        /* Body and background setup */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Container for the entire TV frame and stand */
+        .tv-container {
+            position: relative;
+            width: 90vw;
+            height: 90vh;
+            max-width: 1200px; /* Max width to keep it from becoming too large */
+            max-height: 900px; /* Max height for large screens */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* TV frame styling */
+        .tv-frame {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;  /* Responsive width */
+            height: 70vh; /* Responsive height */
+            background-color: #000;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8); /* Subtle shadow for depth */
+            border: 8px solid rgb(35, 33, 33); /* Black border around the TV frame */
+        }
+
+        /* Video inside the TV */
+        .tv-screen {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .tv-screen video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border: none;
+        }
+
+        /* Central TV Stand styling (Vertical Rectangular Stand with Curved Horizontal Part) */
+        .tv-stand1 {
+            position: absolute;
+            top: 80%; /* Responsive position */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 12%; /* Relative width */
+            height: 50px; /* Responsive height */
+            background-color: #444;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8); /* Adding more shadow for depth */
+            z-index: 5;
+        }
+
+        .tv-stand {
+            position: absolute;
+            top: 88%; /* Responsive position */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30%; /* Relative width */
+            height: 60px; /* Responsive height */
+            background-color: #444;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.8); /* Adding more shadow for depth */
+            z-index: 5;
+        }
+
+        /* Horizontal curved part of the stand */
+        .tv-stand:before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(45deg, #777, #555);
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        /* Vertical base of the stand (Rectangle) */
+        .tv-stand .stand-vertical {
+            position: absolute;
+            top: 0; /* Align with the top of the curved section */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10%; /* Relative width */
+            height: 40px; /* Responsive height */
+            background-color: #666;
+            z-index: 2;
+        }
+
+        /* Overlay for Ads */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2vw; /* Responsive font size */
+            font-family: Arial, sans-serif;
+            z-index: 10; /* Ensure the ad is above the video */
+            opacity: 1;
+            transition: opacity 0.5s ease; /* Smooth transition for fading out */
+        }
+
+        /* Ad content styling */
+        .ad-content {
+            width: 80%;
+            max-width: 100%;
+            height: 100%;
+            background: transparent; /* Remove background */
+        }
+
+        .ad-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none; /* Remove iframe border */
+            background: transparent; /* Ensure iframe background is transparent */
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="tv-container">
+        <!-- TV Frame -->
+        <div class="tv-frame">
+            <!-- Video Screen inside the TV -->
+            <div class="tv-screen">
+                <video autoplay loop muted>
+                    <source src="https://videos.pexels.com/video-files/2335977/2335977-sd_640_360_24fps.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <!-- Ad Overlay -->
+            <div class="overlay">
+                <div class="ad-content">
+                    <iframe src="https://ads-ashy.vercel.app/" frameborder="0" allow="autoplay; encrypted-media" title="Ad"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Central TV Stand with Vertical and Curved Horizontal Sections -->
+        <div class="tv-stand1"></div>
+        <div class="tv-stand">
+            <!-- Vertical part of the stand -->
+            <div class="stand-vertical"></div>
+        </div>
+    </div>
+
+</body>
+</html>
