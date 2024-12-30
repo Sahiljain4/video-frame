@@ -123,8 +123,8 @@
             font-size: 2vw; /* Responsive font size */
             font-family: Arial, sans-serif;
             z-index: 10; /* Ensure the ad is above the video */
-            opacity: 1;
-            transition: opacity 0.5s ease; /* Smooth transition for fading out */
+            opacity: 0; /* Initially hidden */
+            transition: opacity 0.5s ease; /* Smooth transition for fading in */
         }
 
         /* Ad content styling */
@@ -140,6 +140,39 @@
             height: 100%;
             border: none; /* Remove iframe border */
             background: transparent; /* Ensure iframe background is transparent */
+        }
+
+        /* Input box for URL */
+        .url-input {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 15px 20px;
+            width: 60%;
+            max-width: 500px;
+            font-size: 1.2em;
+            border: 2px solid #ccc;
+            border-radius: 25px;
+            background-color: #fff;
+            color: #333;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for a floating effect */
+            transition: all 0.3s ease; /* Smooth transition for effects */
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
+        }
+
+        /* Focus effect */
+        .url-input:focus {
+            outline: none;
+            border-color: #b6b9bd; /* Blue border on focus */
+            box-shadow: 0 0 10px rgba(211, 197, 150, 0.5); /* Soft blue glow */
+        }
+
+        /* Placeholder text styling */
+        .url-input::placeholder {
+            color: #888; /* Light grey placeholder text */
+            font-style:normal
         }
 
     </style>
@@ -158,9 +191,9 @@
             </div>
 
             <!-- Ad Overlay -->
-            <div class="overlay">
+            <div class="overlay" id="ad-overlay">
                 <div class="ad-content">
-                    <iframe src="https://add-psi.vercel.app/" frameborder="0" allow="autoplay; encrypted-media" title="Ad"></iframe>
+                    <iframe id="ad-iframe" src="" frameborder="0" allow="autoplay; encrypted-media" title="Ad"></iframe>
                 </div>
             </div>
         </div>
@@ -172,6 +205,57 @@
             <div class="stand-vertical"></div>
         </div>
     </div>
+
+    <!-- Input field for user to enter the URL -->
+    <input type="text" id="url-input" class="url-input" placeholder="Enter ad URL and press Enter">
+
+    <script>
+        // Function to update the ad overlay with user input
+        function updateAd() {
+            const urlInput = document.getElementById('url-input');
+            const adIframe = document.getElementById('ad-iframe');
+            const adOverlay = document.getElementById('ad-overlay');
+
+            // Get the URL from the input field
+            const url = urlInput.value.trim();
+
+            if (url) {
+                // Update iframe source and show the overlay
+                adIframe.src = url;
+                adOverlay.style.opacity = 1; // Fade in the overlay
+
+                // Hide the input field
+                urlInput.style.display = 'none';
+
+                // Save the URL in localStorage
+                localStorage.setItem('adUrl', url);
+            }
+        }
+
+        // Optional: Allow pressing 'Enter' to submit the URL
+        document.getElementById('url-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                updateAd();
+            }
+        });
+
+        // On page load, reset the URL and make the input appear
+        window.onload = function() {
+            // Clear localStorage to reset the URL
+            localStorage.removeItem('adUrl');
+            
+            const urlInput = document.getElementById('url-input');
+            const adOverlay = document.getElementById('ad-overlay');
+            const adIframe = document.getElementById('ad-iframe');
+
+            // Reset iframe and hide the overlay
+            adIframe.src = '';
+            adOverlay.style.opacity = 0;
+            
+            // Show the input field again
+            urlInput.style.display = 'block';
+        };
+    </script>
 
 </body>
 </html>
